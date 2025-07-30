@@ -1,0 +1,150 @@
+# 🐼 PANDAS_PROJECT
+
+Ce projet a pour but d'explorer, nettoyer et analyser un fichier produit Amazon (`Amazon_products.csv`) à l'aide de **Pandas**. Plusieurs scripts ont été développés pour répondre à des cas spécifiques de traitement de données, avec des exports propres dans le dossier `outputs/`.
+
+---
+
+## 📁 Structure du projet
+
+```
+PANDAS_PROJECT/
+│
+├── inputs/                         # Données brutes
+│   ├── Amazon_products.csv
+│   └── cleaned_shopee_products.parquet
+│
+├── outputs/                        # Données exportées nettoyées/filtrées
+│   ├── top5_high_rated.csv
+│   ├── top10_electronics.csv
+│   ├── top10_smartphones.csv
+│   └── products_cleaned_no_groupby.parquet
+│
+├── Scripts/                        # Scripts de traitement Python
+│   ├── explore_optimize_data.py
+│   ├── smart_filtring.py
+│   ├── high_rated_products.py
+│   ├── clean_no_groupby.py
+│   └── explore_wduckdb.py
+│
+├── requirements.txt               # Dépendances (facultatif)
+└── README.md                      # Documentation du projet
+```
+
+---
+
+## ⚙️ Prérequis
+
+- Python 3.10+
+- pip
+- Librairies :
+
+```bash
+pip install pandas pyarrow
+```
+
+---
+
+## 🚀 Scripts disponibles
+
+### 1. `explore_optimize_data.py`
+
+📌 **Objectif** : filtrer les produits du département `Electronics` avec un prix entre 100$ et 800$.
+
+🧠 Étapes :
+
+- Chargement du CSV
+- Nettoyage de base
+- Filtrage par département et plage de prix
+- Export des 10 meilleurs produits vers `outputs/top10_electronics.csv`
+
+📦 **Commandes** :
+
+```bash
+python Scripts/explore_optimize_data.py
+```
+
+---
+
+### 2. `smart_filtring.py`
+
+📌 **Objectif** : filtrage intelligent par mot-clé (`smartphones`, `books`, etc.).
+
+🧠 Étapes :
+
+- Filtrage dynamique selon un mot-clé dans `categories`
+- Tri par prix et note
+- Export vers `outputs/top10_smartphones.csv`
+
+📦 **Commandes** :
+
+```bash
+python Scripts/smart_filtring.py
+```
+
+---
+
+### 3. `high_rated_products.py`
+
+📌 **Objectif** : extraire les 5 produits les mieux notés.
+
+🧠 Étapes :
+
+- Comptage des valeurs manquantes
+- Remplissage des stocks manquants avec 0
+- Suppression des produits sans prix
+- Tri par note décroissante
+- Export top 5 vers `outputs/top5_high_rated.csv`
+
+📦 **Commandes** :
+
+```bash
+python Scripts/high_rated_products.py
+```
+
+---
+
+### 4. `clean_no_groupby.py`
+
+📌 **Objectif** : nettoyage complet du fichier `Amazon_products.csv` sans groupby, pour produire un jeu de données propre.
+
+🧠 Étapes :
+
+- Suppression des doublons exacts
+- Tri multi-critère par `asin`, `rating`, `reviews_count`, `final_price`
+- Garde la meilleure ligne par `asin`
+- Remplissage intelligent :
+  - `brand` ← `seller_name`
+  - `categories` ← `"unknown"`
+- Nettoyage de texte : suppression des caractères spéciaux, normalisation
+- Suppression des lignes incomplètes
+- Export final au format `.parquet`
+
+📦 **Commandes** :
+
+```bash
+python Scripts/clean_no_groupby.py
+```
+
+---
+
+### 5. `explore_wduckdb.py`
+
+📌 **Objectif** : lecture et exploration rapide de fichiers CSV ou Parquet via **DuckDB** (si besoin de perf ou SQL sur fichiers plats)
+
+💡 À compléter si besoin.
+
+---
+
+## ✅ Résultat final
+
+Le projet permet de produire :
+
+- des fichiers nettoyés et exportés dans `outputs/`
+- un ensemble de scripts réutilisables pour des traitements ciblés
+
+---
+
+## ✍️ Auteur
+
+Développé par **Rayan Biad**  
+Date : **Juillet 2025**
